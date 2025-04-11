@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <h1 class="q-mb-md">Document</h1>
+    <h4 class="q-mb-md">Document</h4>
     <q-card class="q-mb-md">
       <q-card-section>
         <div class="text-h6">Document Management</div>
