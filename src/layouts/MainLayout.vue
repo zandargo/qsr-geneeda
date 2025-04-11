@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="hHh Lpr lFf">
+    <q-header elevated class="modern-header">
       <q-toolbar>
         <q-btn
           flat
@@ -9,13 +9,17 @@
           icon="menu"
           aria-label="Menu"
           @click="toggleLeftDrawer"
+          class="q-mr-sm"
         />
 
-        <q-toolbar-title>
-          Quasar App
+        <q-toolbar-title class="text-weight-medium">
+          General Needs Assessment
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-chip outline color="white" text-color="white" class="version-chip">
+          <q-icon name="new_releases" size="xs" class="q-mr-xs" />
+          v0.01
+        </q-chip>
       </q-toolbar>
     </q-header>
 
@@ -23,19 +27,45 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
+      class="modern-drawer"
     >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+      <!-- User Profile Section -->
+      <div class="user-profile q-pa-md">
+        <q-avatar size="72px" class="q-mb-sm">
+          <img src="https://cdn.quasar.dev/img/avatar.png">
+        </q-avatar>
+        <div class="text-weight-medium text-subtitle1">John Doe</div>
+        <div class="text-caption">Administrator</div>
+      </div>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
+      <q-separator />
+
+      <q-list padding class="menu-list">
+        <q-item-label header class="text-weight-bold q-pb-xs">Navigation</q-item-label>
+
+        <!-- Tasks Section -->
+        <q-item to="/tasks" clickable exact v-ripple class="nav-item">
+          <q-item-section avatar>
+            <q-icon name="task" color="primary" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Tasks</q-item-label>
+            <q-item-label caption>Manage your tasks</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <!-- Document Section -->
+        <q-item to="/document" clickable exact v-ripple class="nav-item">
+          <q-item-section avatar>
+            <q-icon name="description" color="primary" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Document</q-item-label>
+            <q-item-label caption>View and edit documents</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <!-- ...existing code... -->
       </q-list>
     </q-drawer>
 
@@ -100,3 +130,57 @@ function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 </script>
+
+<style lang="scss">
+.modern-header {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+
+  .q-toolbar {
+    height: 64px;
+  }
+
+  .version-chip {
+    min-height: 24px;
+    font-size: 0.7rem;
+    border-radius: 12px;
+  }
+}
+
+.modern-drawer {
+  .user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    background: linear-gradient(to bottom, rgba(247, 250, 252, 0.7), transparent);
+  }
+
+  .menu-list {
+    .q-item-label.header {
+      color: #4a5568;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      margin-top: 8px;
+    }
+
+    .nav-item {
+      border-radius: 8px;
+      margin: 4px 8px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
+
+      &.q-router-link-exact-active {
+        background-color: #e6f7ff;
+
+        .q-icon {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+</style>
